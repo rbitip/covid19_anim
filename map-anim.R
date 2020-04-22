@@ -93,4 +93,4 @@ pl <- plot_usmap() + theme_void(base_size = 22) +
 # ggsave(filename = "anim-test.png", plot=pl, width=12.80, height=7.20, dpi=100)
 
 # anim_save(filename = "anim-test.gif", animation=pl, renderer=gifski_renderer(), nframes=length(unique(data$date)), fps=1, detail=2, width=720, height=480, end_pause=5)
-anim_save(filename = here("sample-output", paste("anim-test-", movie_date, ".mp4")), animation=pl, renderer=av_renderer(), nframes=length(unique(data$date)), fps=2/3, detail=2, width=1920, height=1080)
+anim_save(filename = here("sample-output", paste0("anim-test-", movie_date, ".mp4")), animation=pl, renderer=av_renderer(), nframes=length(unique(data$date)), fps=2/3, detail=2, width=1920, height=1080)
