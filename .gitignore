@@ -1,5 +1,5 @@
 # don't save video files after initial commit
-.mp4
+*.mp4
 
 # History files
 .Rhistory
