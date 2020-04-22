@@ -8,7 +8,7 @@ library(gridExtra)
 here <- here::here
 source(here("funcs.R"))
 
-filename <- "us-counties-20200414.csv"
+filename <- "us-counties-20200422.csv"
 # name for nytimes data
 
 # data loading, fixing ----

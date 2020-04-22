@@ -9,7 +9,7 @@ library(ggplot2)
 
 here <- here::here
 
-filename <- "time_series_covid19_confirmed_US-20200412.csv"
+filename <- "time_series_covid19_confirmed_US-20200422.csv"
 
 # data loading, fixing/cleaning ----
 
