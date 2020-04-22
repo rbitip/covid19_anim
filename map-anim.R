@@ -8,7 +8,7 @@ library(gganimate)
 here <- here::here
 source(here("funcs.R"))
 
-filename <- "us-counties-20200414.csv"
+filename <- "us-counties-20200422.csv"
 # name for nytimes data
 
 # data loading, fixing ----
@@ -65,7 +65,7 @@ data <- safe_transform(select(data, long, lat, everything()))
 # define some parameters to make the plot prettier
 min_cases <- 1
 max_cases <- max(data$cases)
-point_mult <- 3
+point_mult <- 3 * 1.26
 
 # NOTE: the base_size in theme_void() is suppose to scale all the elements of the plot to desired
 # because the scaling of plot elements in the animation =/= that for saving static plots.

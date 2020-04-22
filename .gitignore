@@ -1,3 +1,6 @@
+# don't save video files after initial commit
+.mp4
+
 # History files
 .Rhistory
 .Rapp.history
