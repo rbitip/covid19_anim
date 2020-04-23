@@ -52,6 +52,18 @@ alpha <- coef(nlsmod)
 f_logis <- function(d) as.numeric(alpha[1]/(1 + exp(-(as.numeric(d) - alpha[2]) / alpha[3])))
 f_logis_10 <- function(d) log10(f_logis(d))
 
+logis <- daily %>%
+  select(date) %>%
+  mutate(cases = f_logis(date))
+
+logis_weekly <- logis %>%
+  filter(date %in% desired_dates) %>%
+  group_by(date) %>%
+  summarize(sum(cases)) %>%
+  rename(cases = `sum(cases)`) %>%
+  mutate(growth = cases - lag(cases, default=cases[1])) %>%
+  mutate(relgrowth = growth / cases)
+
 # plotting ----
 
 # plot logistic fit over data - linear
@@ -65,7 +77,8 @@ print(p0)
 
 # plot logistic fit over data - log
 # starting after March because cases are noisy before March and growth is ~ 0
-# have to use f_logis_10 because stat function is plotted after log scale is applied
+# have to use f_logis_10 because stat_function is plotted after log scale is applied:
+# can use logis and logis_weekly instead
 p1 <- ggplot(data = filter(daily, date > ymd("20200301")), aes(x=date, y=cases)) + 
   geom_point() + 
   stat_function(fun=f_logis_10) +
@@ -94,3 +107,14 @@ p3 <- ggplot(data = daily, aes(x=date, y=cases)) +
   theme_light()
 
 print(p3)
+
+# plot of relgrowth to cases for data and for logistic model
+
+p4 <- ggplot(data = weekly, aes(x=cases, y=relgrowth)) + 
+  geom_point() + 
+  geom_line(data = logis_weekly, aes(x=cases, y=relgrowth)) + 
+  scale_y_continuous(trans="log10") +
+  scale_x_continuous(trans="log10") + 
+  theme_light()
+  
+print(p4)
