@@ -13,8 +13,8 @@ Credit and thanks given to the New York Times (https://github.com/nytimes/covid-
 Note: NYT refers to the New York Times. JH refers to John Hopkins.
 
 * map-anim.R: reformat NYT data for plotting and animating a time-lapse of reported COVID-19 cases throughout the US using gganimate.
+* log-vis.R: visualize weekly deltas in cases vs cumulative cases with log-log scales using the JH data.
 * jh-example.R: script file showing examples of dplyr to format/select data from the JH data and plotting.
-* log-log.R: visualize weekly deltas in cases vs cumulative cases with log-log scales using the JH data.
 * cases-vis.R: visualize cumulative US cases over time, with linear-linear or log-linear scales.
 * funcs.R: helper functions for map-anim.R.
 * fips-lookup.csv: lookup table for fips location codes to find lat-long for map-anim.R.
