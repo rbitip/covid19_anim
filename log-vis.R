@@ -10,7 +10,7 @@ library(cowplot)
 
 here <- here::here
 
-filename <- "time_series_covid19_confirmed_US-20200422.csv"
+filename <- "time_series_covid19_confirmed_US-20200521.csv"
 
 # data loading, fixing/cleaning ----
 
@@ -22,7 +22,7 @@ data <- rename(data, date = date.day, date.string = date, state = Province_State
 
 # diff over N days
 
-N = 4
+N = 7
 
 max_date <- max(data$date)
 min_date <- min(data$date)
@@ -70,7 +70,7 @@ logis_weekly <- logis %>%
 
 p0 <- ggplot(data = daily, aes(x=date, y=cases)) + 
   geom_point() + 
-  stat_function(fun=f_logis, color="red") + 
+  stat_function(fun=f_logis, color="red") +
   theme_light()
 
 print(p0)
@@ -81,7 +81,7 @@ print(p0)
 # can use logis and logis_weekly instead
 p1 <- ggplot(data = filter(daily, date > ymd("20200301")), aes(x=date, y=cases)) + 
   geom_point() + 
-  stat_function(fun=f_logis_10) +
+  stat_function(fun=f_logis_10, color="red") +
   scale_y_continuous(trans="log10") +
   theme_light()
 

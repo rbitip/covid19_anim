@@ -9,7 +9,7 @@ library(ggplot2)
 
 here <- here::here
 
-filename <- "time_series_covid19_confirmed_US-20200422.csv"
+filename <- "time_series_covid19_confirmed_US-20200521.csv"
 
 # data loading, fixing/cleaning ----
 
@@ -47,7 +47,7 @@ print(pl)
 data2 <- data %>%
   # filter for these three states
   # cases = 0 makes the logplot throw warnings
-  filter(state %in% c("California", "Oregon", "Washington"), cases > 0) %>%
+  filter(state %in% c("California", "New York", "Washington", "Illinois", "Kentucky"), cases > 0) %>%
   # in essence, with group_by state the id variables you want
   group_by(state, date) %>%
   summarize(sum(cases)) %>%
