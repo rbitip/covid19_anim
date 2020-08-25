@@ -10,7 +10,7 @@ library(cowplot)
 
 here <- here::here
 
-filename <- "time_series_covid19_confirmed_US-20200521.csv"
+filename <- "time_series_covid19_confirmed_US-20200530.csv"
 
 # data loading, fixing/cleaning ----
 
@@ -102,8 +102,7 @@ print(p2)
 p3 <- ggplot(data = daily, aes(x=date, y=cases)) + 
   geom_point() + 
   geom_point(data = weekly, aes(x=date, y=growth), color="red") + 
-  scale_y_continuous(trans="log10", 
-                     sec.axis = sec_axis(~ . * 1, name=paste0(N, "-day growth in cases"))) + 
+  scale_y_continuous(sec.axis = sec_axis(~ . * 1, name=paste0(N, "-day growth in cases"))) + 
   theme_light()
 
 print(p3)

@@ -8,8 +8,8 @@ library(gganimate)
 here <- here::here
 source(here("funcs.R"))
 
-filename <- "us-counties-20200521.csv"
-movie_date <- "20200521"
+filename <- "us-counties-20200624.csv"
+movie_date <- "20200624-test-aftermarch1-1fps"
 # name for nytimes data
 
 # data loading, fixing ----
@@ -63,10 +63,20 @@ for(date in unique(data$date)){
 # a wrapped around the USMAPS transform function to prevent strange errors where the output would have different number of rows from the input
 data <- safe_transform(select(data, long, lat, everything()))
 
+data <- data[data$date.day >= ymd("2020-03-01"),]
+
+# daily has columns: date.day, cases
+daily <- data %>%
+  group_by(date.day) %>%
+  summarize(sum(cases)) %>%
+  rename(cases = `sum(cases)`)
+
+daily <- mutate(daily, date = date.day)
+
 # define some parameters to make the plot prettier
 min_cases <- 1
 max_cases <- max(data$cases)
-point_mult <- 3 * 1.26 * 1.43
+point_mult <- 3 * 1.26 * 1.43 * 1.053206
 
 # NOTE: the base_size in theme_void() is suppose to scale all the elements of the plot to desired
 # because the scaling of plot elements in the animation =/= that for saving static plots.
@@ -93,4 +103,4 @@ pl <- plot_usmap() + theme_void(base_size = 22) +
 # ggsave(filename = "anim-test.png", plot=pl, width=12.80, height=7.20, dpi=100)
 
 # anim_save(filename = "anim-test.gif", animation=pl, renderer=gifski_renderer(), nframes=length(unique(data$date)), fps=1, detail=2, width=720, height=480, end_pause=5)
-anim_save(filename = here("sample-output", paste0("anim-test-", movie_date, ".mp4")), animation=pl, renderer=av_renderer(), nframes=length(unique(data$date)), fps=2, detail=2, width=1920, height=1080)
+anim_save(filename = here("sample-output", paste0("anim-test-", movie_date, ".mp4")), animation=pl, renderer=av_renderer(), nframes=length(unique(data$date)), fps=1, detail=2, width=1920, height=1080)
